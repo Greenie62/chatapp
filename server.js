@@ -17,9 +17,30 @@ app.use(express.static("public"))
 
 app.use(routes)
 
+let users =[];
+
 
 io.on('connection',socket=>{
     console.log(socket.id)
+
+    socket.on('join-chat',({user,room})=>{
+        console.log(user,room)
+        users.push({id:socket.id,username:user,room});
+
+        socket.join(room)
+
+        socket.emit("message",{user:"admin",text:`${user} welcome to the chat!`})
+        socket.broadcast.to(room).emit("message",{user:"admin",text:`${user} welcome to the chat!`})
+        io.to(room).emit("roomData",{room:room,users})
+    })
+
+    socket.on('send-message',message=>{
+        console.log(message)
+        let idx = users.findIndex(u=>u.id === socket.id);
+
+        console.log("User: ", users[idx]);
+        io.to(users[idx].room).emit("message",{user:users[idx].username,text:message})
+    })
 
 
     socket.on("disconnect",()=>{

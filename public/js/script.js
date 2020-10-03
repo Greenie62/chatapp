@@ -2,10 +2,51 @@ const myVideo = document.createElement("video");
 myVideo.className='vid-box'
 const vidGrid = document.querySelector(".video-grid");
 myVideo.muted=true;
-var recordBtn=document.querySelector(".record")
-var output=document.querySelector(".output")
+let filterOption;
+var filterSelectBox = document.querySelector("#filters")
+// var expressionsDOM = document.querySelector(".expressions")
 
 
+var filters=[{type:"sepia",value:"100%"},
+             {type:"grayScale",value:"100%"},
+             {type:"contrast",value:"200%"},
+             {type:"hue-rotate",value:"90deg"},
+             {type:"blur",value:"3px"},
+]
+
+
+
+function createHashMap(arr){
+    let hash={};
+    arr.forEach(({type,value})=>{
+        hash[type] = value
+    })
+    return hash;
+}
+
+let hashMap=createHashMap(filters)
+
+
+
+function populateSelectBox(obj){
+    let html = "";
+    let counter=0;
+
+    for(let i in obj){
+        html +=`
+        <option key=${i} val=${obj[i]} value=${counter}>${i}</option>`
+        counter++
+    }
+    console.log(html)
+    html += `<option key='none' val='none' value=${5}>None</option>`;
+
+    filterSelectBox.innerHTML = html
+}
+
+populateSelectBox(hashMap)
+
+
+            
 const main = async()=>{
 
     let stream = await navigator.mediaDevices.getUserMedia({video:true,audio:true})
@@ -24,47 +65,36 @@ function projectVideo(vid,stream){
 
     vidGrid.appendChild(vid)
 
-    // setTimeout(()=>{
-    //     console.log("vid removed!")
-    //     vid.remove()
-    //     vidGrid.innerHTML=""
-    // },3000)
+  
 }
 
 
-main()
+ main()
 
 
-let SS = window.SpeechRecognition || window.webkitSpeechRecognition;
+filterSelectBox.onchange=(e)=>{
+    // console.log(e.target.value)
+    // console.log(e.target)
+    var options = document.querySelectorAll('option');
 
-console.log(SS)
+    console.log(options)
+    if(e.target.value === "5"){
+        console.log('apply none');
+        myVideo.style.filter='none'
+        return;
+    }
 
-let recognition = new SS();
-
-
-recognition.onstart=()=>{
-    console.log("its started!")
+    console.log(options[e.target.value])
+    let key = options[e.target.value].getAttribute("key")
+    let val = options[e.target.value].getAttribute("val")
+    console.log(key,val)
+    // console.log(`${e.target.keyval}(${e.target.value})`)
+      myVideo.style.filter=`${key}(${val})`
+      filterOption=`${key}(${val})`
+   // myVideo.style.filter='grayScale(100%)'
 }
 
 
-recognition.onend=()=>{
-    console.log("its ended!")
-}
 
-
-recognition.onresult=(e)=>{
-    output.innerHTML=""
-    console.log(e)
-    let ourText=e.results[0][0].transcript;
-
-    console.log(ourText);
-    output.innerText=ourText
-}
-
-
-recordBtn.onclick=()=>{
-
-    recognition.start()
-}
 
 

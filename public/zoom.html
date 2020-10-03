@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <link rel="search icon" href="#">
+    <script src="socket.io/socket.io.js"></script>
+    <title>Zoom </title>
+</head>
+<body>
+ <div class="header">
+     <h1 class="headerh1-one">Zoomy</h1>
+     <h1 class="headerh1-two">zoom</h1>
+ </div>
+
+ <h3><a href="/chat">Chat</a></h3>
+
+ <div class="content-body">
+     
+ <div class="vid-text-box">
+        <div class="video-grid"></div>
+    <div class="text-div">
+        <h1 class='output'></h1>
+        <div class="expressions"></div>
+    </div>
+ </div>
+ 
+ <div class="controller-row">
+     <button class="commentsBtn">View Comments</button>
+ <button class="record">Record</button>
+ <button class="pictureBtn">Take Pic</button>
+
+ <!-- add filter select controls/take picture functionality -->
+ <div class="selectDiv">
+     <label for="filters">Filters:</label>
+     <select name="filter" id="filters">
+         
+     </select>
+ </div>
+ <canvas id='canvas'></canvas>
+ <button class="savepicbtn">Save Pic</button>
+
+
+ </div>
+
+ <div class="gallery"></div>
+
+ </div>
+
+    <script src="js/voice.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/canvas.js"></script>
+
+</body>
+</html>

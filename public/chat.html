@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/chat.css">
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
     <link rel="search icon" href="#">
-    <script src="socket.io/socket.io.js"></script>
-    <title>Brat Chat </title>
+    <script src="../socket.io/socket.io.js"></script>
+    <title>Chit Chat 💬 </title>
 </head>
 <body>
- <div class="header">
-     <h1 class="headerh1-one">BRAT</h1>
-     <h1 class="headerh1-two">CHAT</h1>
- </div>
- <div class="content-body">
- <div class="video-grid"></div>
- <div class="text-div">
-     <h1 class='output'></h1>
- </div>
- <button class="record">Record</button>
- </div>
+<div class="socketHeader">
+    <h1>Chit Chat </h1>
+    <a href="/zoom">Zoom</a>
+</div>
+<div class="content-div">
+<div class="chatarea"></div>
+<div class="userlistarea"></div>
 
+</div>
+<div class="entermessagerow">
+    <label for="message">Type message:</label>
+    <input type="text" name="message" placeholder="message" autocomplete="off" id="message">
+    <button class='messageBtn'>Send</button>
+</div>
+    <!-- <script src="js/voice.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/script.js"></script> -->
 
-    <script src="js/script.js"></script>
+    <script src="../js/socketchat.js"></script>
 </body>
 </html>
